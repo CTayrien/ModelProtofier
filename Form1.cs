@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Model Protofier: free open-source software for preprocessing obj wavefront models into vertex buffer object format for the Proto Engine.
+Copyright (C) 3/14/2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
+GNU General Public License<http://www.gnu.org/licenses/>./**/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-//using System.Collections;
 
 namespace ModelProcessor
 {

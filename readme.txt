@@ -1,0 +1,1 @@
+Model Protofier is free open-source software for pre-processing .obj wavefront model files into a format requiring minimal processing by the Proto Engine. A 16-byte header gives maximum x, y and z, and number of vertices, and the remainder of the file is the exact bytes that should be sent to the graphics card VBO.
