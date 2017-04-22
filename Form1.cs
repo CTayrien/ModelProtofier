@@ -111,18 +111,32 @@ namespace ModelProcessor
                     // Parse and add 3 complex vertInds
                     if (label == "f")
                     {
+
+                        
+
                         for (int i = 0; i < 3; i++)
                         {
+                            int locWord = 1 + i * 3;
+                            int uvWord = 2 + i * 3;
+                            int normWord = 3 + i * 3;
+                            
                             VertInd vertInd = new VertInd();
-                            UInt32.TryParse(words[1 + i * 3], out vertInd.locInd); vertInd.locInd--;
-                            UInt32.TryParse(words[2 + i * 3], out vertInd.uvInd); vertInd.uvInd--;
-                            UInt32.TryParse(words[3 + i * 3], out vertInd.normInd); vertInd.normInd--;
+
+                            if(UInt32.TryParse(words[locWord], out vertInd.locInd)  )  vertInd.locInd--;
+                            if(UInt32.TryParse(words[uvWord], out vertInd.uvInd)    )  vertInd.uvInd--;
+                            if(UInt32.TryParse(words[normWord], out vertInd.normInd))  vertInd.normInd--;
+
                             vertInds.Add(vertInd);
                         }
                     }
                 }
-                
                 modelstream.Close();
+
+                // If no uvs, all indices = 0, so make 1 uv
+                if (uvs.Count == 0)
+                {
+                    uvs.Add(new vec2());
+                }
 
                 // Recenter model
                 vec3 mina = new vec3();
@@ -178,12 +192,14 @@ namespace ModelProcessor
                 //vertBufData = new List<Vertex>((int)nverts);
                 for (int i = 0; i < nverts; i++)
                 {
+                    int iLoc = (int)vertInds[i].locInd;
+                    int iuv =  (int)vertInds[i].uvInd;
+                    int inorm = (int)vertInds[i].normInd;
+                    
                     Vertex vertex = new Vertex();
-
-                    vertex.loc = locs[(int)vertInds[i].locInd];
-                    vertex.uv = uvs[(int)vertInds[i].uvInd];
-                    vertex.norm = norms[(int)vertInds[i].normInd];
-
+                    vertex.loc = locs[iLoc];
+                    vertex.uv = uvs[iuv];
+                    vertex.norm = norms[inorm];
                     vertBufData.Add(vertex);
                 }
 
@@ -197,8 +213,8 @@ namespace ModelProcessor
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
-                MessageBox.Show("Error reading file");
+                //MessageBox.Show();
+                MessageBox.Show(ex.Message, "Error reading file");
             }
             
             // enable the buttons
