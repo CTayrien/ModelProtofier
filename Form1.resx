@@ -127,7 +127,7 @@ Faces must already be triangulated
 Model will be re-centered
 
 Export .dat file format:
-3x float: max x, y, z
+4x float: max x, y, z, r
 1x uint: # verts
 8x float (for each vert):   x y z  u v  nx ny nz</value>
   </data>
